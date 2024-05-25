@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace megaDesk
 {
@@ -76,16 +78,24 @@ namespace megaDesk
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
-                Debug.WriteLine(json);
-                quotes = JsonConvert.DeserializeObject<List<DeskQuote>>(json);
+                try
+                {
+                    quotes = JsonConvert.DeserializeObject<List<DeskQuote>>(json);
+                    //quotes = JsonConvert.DeserializeObject<List<DeskQuote>>(json);
+                }
+                catch
+                {
+                    Debug.WriteLine("Unable to parse data in JSON file");
+                }
             }
 
-            Debug.WriteLine(quotes.Count); // 0
-            //quotes.Add(quote);
+            Debug.WriteLine($"quotescount: {quotes.Count}"); // 0
+            quotes.Add(quote);
 
-            //string updatedJson = JsonConvert.SerializeObject(quotes, Formatting.Indented);
+            string updatedJson = JsonConvert.SerializeObject(quotes, Formatting.Indented);
+            Debug.WriteLine($"writing JSON: {updatedJson}");
 
-            //File.WriteAllText(filePath, updatedJson);
+            File.WriteAllText(filePath, updatedJson);
 
             DisplayQuote screen = new DisplayQuote(quote._quoteDate.ToString(), quote._quote.ToString(), quote._customerName, quote._productionTime.ToString());
             screen.Tag = this;
