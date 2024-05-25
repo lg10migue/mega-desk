@@ -72,30 +72,11 @@ namespace megaDesk
             Desk desk = new Desk(Convert.ToInt32(deskWidth.Text), Convert.ToInt32(deskDepth.Text), Convert.ToInt32(drawerCount.Text), selectedMat);
             DeskQuote quote = new DeskQuote(customerName.Text, desk, rush.SelectedItem.ToString(), DateTime.Now);
 
-            string filePath = @"quotes.json";
-            List<DeskQuote> quotes = new List<DeskQuote>();
+            Program.quotes.Add(quote);
 
-            if (File.Exists(filePath))
-            {
-                string json = File.ReadAllText(filePath);
-                try
-                {
-                    quotes = JsonConvert.DeserializeObject<List<DeskQuote>>(json);
-                    //quotes = JsonConvert.DeserializeObject<List<DeskQuote>>(json);
-                }
-                catch
-                {
-                    Debug.WriteLine("Unable to parse data in JSON file");
-                }
-            }
+            string updatedJson = JsonConvert.SerializeObject(Program.quotes, Formatting.Indented);
 
-            Debug.WriteLine($"quotescount: {quotes.Count}"); // 0
-            quotes.Add(quote);
-
-            string updatedJson = JsonConvert.SerializeObject(quotes, Formatting.Indented);
-            Debug.WriteLine($"writing JSON: {updatedJson}");
-
-            File.WriteAllText(filePath, updatedJson);
+            File.WriteAllText(Program.jsonFilePath, updatedJson);
 
             DisplayQuote screen = new DisplayQuote(quote._quoteDate.ToString(), quote._quote.ToString(), quote._customerName, quote._productionTime.ToString());
             screen.Tag = this;
