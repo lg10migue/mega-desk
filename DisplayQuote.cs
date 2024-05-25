@@ -30,5 +30,13 @@ namespace megaDesk
         {
 
         }
+
+        private void ReturnButton_Click(object sender, EventArgs e)
+        {
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Tag = this;
+            mainMenu.Show(this);
+            Hide();
+        }
     }
 }

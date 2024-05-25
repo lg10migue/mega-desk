@@ -37,6 +37,7 @@
             pricelabel = new Label();
             customerlabel = new Label();
             datelabel = new Label();
+            ReturnButton = new Button();
             SuspendLayout();
             // 
             // label1
@@ -126,11 +127,23 @@
             datelabel.TabIndex = 10;
             datelabel.Text = "Date";
             // 
+            // ReturnButton
+            // 
+            ReturnButton.Font = new Font("Segoe UI", 10F);
+            ReturnButton.Location = new Point(201, 351);
+            ReturnButton.Name = "ReturnButton";
+            ReturnButton.Size = new Size(122, 40);
+            ReturnButton.TabIndex = 14;
+            ReturnButton.Text = "Main Menu";
+            ReturnButton.UseVisualStyleBackColor = true;
+            ReturnButton.Click += ReturnButton_Click;
+            // 
             // DisplayQuote
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(539, 450);
+            Controls.Add(ReturnButton);
             Controls.Add(rushlabel);
             Controls.Add(pricelabel);
             Controls.Add(customerlabel);
@@ -158,5 +171,6 @@
         private Label pricelabel;
         private Label customerlabel;
         private Label datelabel;
+        private Button ReturnButton;
     }
 }
