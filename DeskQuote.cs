@@ -28,11 +28,16 @@ namespace megaDesk
         public DeskQuote(string customerName, Desk desk, string productionTime, DateTime quoteDate)
         {
             _customerName = customerName;
+            Debug.WriteLine(_customerName);
             _desk = desk;
+            Debug.WriteLine(_desk);
             _productionTime = productionTime;
+            Debug.WriteLine(_productionTime);
             _quoteDate = quoteDate;
+            Debug.WriteLine(_quoteDate);
             _rushOrderOptions = getRushOrder();
             _quote = calculateQuote();
+            Debug.WriteLine(_quote);
         }
 
         public int[,] getRushOrder()

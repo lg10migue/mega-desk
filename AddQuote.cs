@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using Newtonsoft.Json;
 
 namespace megaDesk
@@ -75,14 +76,16 @@ namespace megaDesk
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
+                Debug.WriteLine(json);
                 quotes = JsonConvert.DeserializeObject<List<DeskQuote>>(json);
             }
 
-            quotes.Add(quote);
+            Debug.WriteLine(quotes.Count); // 0
+            //quotes.Add(quote);
 
-            string updatedJson = JsonConvert.SerializeObject(quotes, Formatting.Indented);
+            //string updatedJson = JsonConvert.SerializeObject(quotes, Formatting.Indented);
 
-            File.WriteAllText(filePath, updatedJson);
+            //File.WriteAllText(filePath, updatedJson);
 
             DisplayQuote screen = new DisplayQuote(quote._quoteDate.ToString(), quote._quote.ToString(), quote._customerName, quote._productionTime.ToString());
             screen.Tag = this;
