@@ -46,6 +46,8 @@
             // 
             // quotesView
             // 
+            quotesView.BackgroundColor = SystemColors.Window;
+            quotesView.BorderStyle = BorderStyle.Fixed3D;
             quotesView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             quotesView.Location = new Point(10, 12);
             quotesView.Name = "quotesView";
@@ -61,7 +63,7 @@
             Controls.Add(button1);
             Margin = new Padding(3, 2, 3, 2);
             Name = "ViewAllQuotes";
-            Text = "ViewAllQuotes";
+            Text = "View All Quotes";
             ((System.ComponentModel.ISupportInitialize)quotesView).EndInit();
             ResumeLayout(false);
         }
