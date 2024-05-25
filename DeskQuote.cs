@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace megaDesk
         public string _customerName { get; }
         public string _productionTime { get; }
         public DateTime _quoteDate { get; }
+        public int[,] _rushOrderOptions;
         public Desk _desk { get; }
      
         private Dictionary<Desk.Material, int> materialPrices = new()
@@ -29,61 +31,72 @@ namespace megaDesk
             _desk = desk;
             _productionTime = productionTime;
             _quoteDate = quoteDate;
+            _rushOrderOptions = getRushOrder();
             _quote = calculateQuote();
+        }
+
+        public int[,] getRushOrder()
+        {
+            int[,] options = new int[3, 3];
+            string[] lines = System.IO.File.ReadAllLines("../../../rushOrderDocument.txt");
+            int count = (int)Math.Sqrt(lines.Length);
+            int lineCount = 0;
+            
+            for (int i=0; i < count; i++)
+            {
+                for (int j = 0; j < count; j++)
+                {
+                    options[i, j] = Int32.Parse(lines[lineCount]);
+                    lineCount++;
+                }
+            }
+            Debug.WriteLine(options[0,0]);
+            return options;
         }
 
         int calculateQuote()
         {
             int quote = 200;
+            int optionX = -1;
+            int optionY = -1;
 
             quote += materialPrices[_desk._material];
             quote += _desk._drawerCount * 50;
-            quote += _desk._size - 1000;
 
-            if (_productionTime == "3 Days")
+            if (_desk._size > 1000)
             {
-                if (_desk._size < 1000)
-                {
-                    quote += 60;
-                }
-                else if (_desk._size <= 2000)
-                {
-                    quote += 70;
-                }
-                else
-                {
-                    quote += 80;
-                }
+                quote += _desk._size - 1000;
             }
-            else if (_productionTime == "5 Days")
+
+            if (_desk._size < 1000)
             {
-                if (_desk._size < 1000)
-                {
-                   quote += 40;
-                }
-                else if (_desk._size <= 2000)
-                {
-                    quote += 50;
-                }
-                else
-                {
-                    quote += 60;
-                }
+                optionX = 0;
             }
-            else if (_productionTime == "7 Days")
+            else if (_desk._size <= 2000)
             {
-                if (_desk._size < 1000)
-                {
-                    quote += 30;
-                }
-                else if (_desk._size <= 2000)
-                {
-                    quote += 35;
-                }
-                else
-                {
-                    quote += 40;
-                }
+                optionX = 1;
+            }
+            else
+            {
+                optionX = 2;
+            }
+
+            if (_productionTime == "3 Day")
+            {
+                optionY = 0;
+            }
+            else if (_productionTime == "5 Day")
+            {
+                optionY = 1;
+            }
+            else if (_productionTime == "7 Day")
+            {
+                optionY = 2;
+            }
+
+            if (optionY >= 0)
+            {
+                quote += _rushOrderOptions[optionY, optionX];
             }
 
             return quote;
