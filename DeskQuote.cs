@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -38,6 +39,28 @@ namespace megaDesk
             _rushOrderOptions = getRushOrder();
             _quote = calculateQuote();
             Debug.WriteLine(_quote);
+        }
+
+        static public List<DeskQuote> loadQuotesFromJSON(string filePath)
+        {
+            List<DeskQuote> quotes = new();
+
+            // Load quotes from JSON file
+            if (File.Exists(filePath))
+            {
+                string json = File.ReadAllText(filePath);
+                try
+                {
+                    quotes = JsonConvert.DeserializeObject<List<DeskQuote>>(json);
+                    //quotes = JsonConvert.DeserializeObject<List<DeskQuote>>(json);
+                }
+                catch
+                {
+                    Debug.WriteLine("Unable to parse data in JSON file");
+                }
+            }
+
+            return quotes;
         }
 
         public int[,] getRushOrder()
