@@ -29,31 +29,46 @@
         private void InitializeComponent()
         {
             button1 = new Button();
+            quotesView = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)quotesView).BeginInit();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(108, 392);
+            button1.Location = new Point(10, 307);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(94, 29);
+            button1.Size = new Size(82, 22);
             button1.TabIndex = 0;
             button1.Text = "Back";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // quotesView
+            // 
+            quotesView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            quotesView.Location = new Point(10, 12);
+            quotesView.Name = "quotesView";
+            quotesView.Size = new Size(678, 286);
+            quotesView.TabIndex = 1;
+            // 
             // ViewAllQuotes
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(700, 338);
+            Controls.Add(quotesView);
             Controls.Add(button1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "ViewAllQuotes";
             Text = "ViewAllQuotes";
+            ((System.ComponentModel.ISupportInitialize)quotesView).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Button button1;
+        private DataGridView quotesView;
     }
 }
