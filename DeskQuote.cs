@@ -9,12 +9,12 @@ namespace megaDesk
 {
     internal class DeskQuote
     {
-        public double _quote { get; }
-        public string _customerName { get; }
-        public string _productionTime { get; }
-        public DateTime _quoteDate { get; }
-        public int[,] _rushOrderOptions;
-        public Desk _desk { get; }
+        public double _quote { get; set;  }
+        public string _customerName { get; set; }
+        public string _productionTime { get; set;  }
+        public DateTime _quoteDate { get; set; }
+        public int[,] _rushOrderOptions { get; set; }
+        public Desk _desk { get; set; }
      
         private Dictionary<Desk.Material, int> materialPrices = new()
         {
@@ -24,15 +24,20 @@ namespace megaDesk
             [Desk.Material.Oak] = 200,
             [Desk.Material.Rosewood] = 300
         };
-
+        public DeskQuote() { }
         public DeskQuote(string customerName, Desk desk, string productionTime, DateTime quoteDate)
         {
             _customerName = customerName;
+            Debug.WriteLine(_customerName);
             _desk = desk;
+            Debug.WriteLine(_desk);
             _productionTime = productionTime;
+            Debug.WriteLine(_productionTime);
             _quoteDate = quoteDate;
+            Debug.WriteLine(_quoteDate);
             _rushOrderOptions = getRushOrder();
             _quote = calculateQuote();
+            Debug.WriteLine(_quote);
         }
 
         public int[,] getRushOrder()
@@ -50,7 +55,6 @@ namespace megaDesk
                     lineCount++;
                 }
             }
-            Debug.WriteLine(options[0,0]);
             return options;
         }
 
