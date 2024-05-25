@@ -12,8 +12,7 @@ namespace megaDesk
         public string _customerName { get; }
         public string _productionTime { get; }
         public DateTime _quoteDate { get; }
-
-        private Desk _desk;
+        public Desk _desk { get; }
      
         private Dictionary<Desk.Material, int> materialPrices = new()
         {

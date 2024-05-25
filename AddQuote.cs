@@ -64,9 +64,7 @@ namespace megaDesk
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            Desk.Material selectedMat;
-            Enum.TryParse<Desk.Material>(material.SelectedValue.ToString(), out selectedMat);
-
+            Desk.Material selectedMat = (Desk.Material)material.SelectedValue;
             Desk desk = new Desk(Convert.ToInt32(deskWidth.Text), Convert.ToInt32(deskDepth.Text), Convert.ToInt32(drawerCount.Text), selectedMat);
             DeskQuote quote = new DeskQuote(customerName.Text, desk, rush.SelectedItem.ToString(), DateTime.Now);
 
